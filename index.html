@@ -603,6 +603,12 @@
   .entry-layout-form-only .entry-form {
     width: 100%;
   }
+
+  /* 矢印などの記号をテキストとして描画させる設定 */
+  .no-emoji {
+    font-family: Arial, "Helvetica Neue", sans-serif;
+    font-variant-caps: normal;
+  }
 </style>
 </head>
 <body>
@@ -627,8 +633,8 @@
       <div class="spec"><span>FEE</span><strong>¥2,000 (¥1,000 from Practice)</strong></div>
     </div>
     <nav class="cta-actions" aria-label="Workshop actions">
-      <a class="details-link" href="#details"><span>詳細はこちら</span><span aria-hidden="true">↗</span></a>
-      <a class="cta" href="#entry"><span>参加を申し込む</span><span aria-hidden="true">↗</span></a>
+      <a class="details-link" href="#details"><span>詳細はこちら</span><span aria-hidden="true" class="no-emoji">↗</span></a>
+      <a class="cta" href="#entry"><span>参加を申し込む</span><span aria-hidden="true" class="no-emoji">↗</span></a>
     </nav>
     <div class="foot"><span>STREET DANCE / WORKSHOP</span><span>2026 — VOL.08</span></div>
   </section>
@@ -655,7 +661,7 @@
   </dl>
   <div class="page-action">
     <p>参加を希望する方は、エントリーフォームからお申し込みください。</p>
-    <a href="#entry">エントリーフォームへ <span aria-hidden="true">↗</span></a>
+    <a href="#entry">エントリーフォームへ <span aria-hidden="true" class="no-emoji">↗</span></a>
   </div>
 </section>
 
@@ -693,7 +699,7 @@
       </div>
       <label class="form-consent"><input type="checkbox" required> <span>入力内容を確認しました。<b>必須</b></span></label>
       <div class="form-bottom">
-        <button class="submit-entry" type="submit"><span>入力内容を確認する</span><span aria-hidden="true">↗</span></button>
+        <button class="submit-entry" type="submit"><span>入力内容を確認する</span><span aria-hidden="true" class="no-emoji">↗</span></button>
         <p>※このデモでは実際の送信は行われません。フォームの項目・料金区分は本番運用前に確認してください。</p>
       </div>
     </form>

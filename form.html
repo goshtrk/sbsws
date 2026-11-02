@@ -51,6 +51,24 @@ h1 span{color:var(--acid)}
 .section-head span{color:var(--muted);font:9px/1.5 "SFMono-Regular",Consolas,monospace;letter-spacing:.1em}
 .form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 16px}
 .field{display:flex;flex-direction:column;gap:9px;min-width:0}
+.participation-options{
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:2px
+}
+.participation-choice{position:relative;display:block;min-width:0;cursor:pointer}
+.participation-choice input{
+  position:absolute;width:1px;height:1px;min-height:0;opacity:0;pointer-events:none
+}
+.participation-choice span{
+  display:flex;align-items:center;justify-content:center;min-height:54px;
+  padding:12px;border:1px solid rgba(255,255,255,.34);background:#101010;
+  color:rgba(255,255,255,.82);font-size:12px;line-height:1.5;text-align:center
+}
+.participation-choice input:checked + span{
+  border-color:var(--acid);color:var(--acid);box-shadow:inset 0 0 0 1px var(--acid)
+}
+.participation-choice input:focus-visible + span{outline:2px solid var(--cyan);outline-offset:3px}
+.participation-choice:active span{transform:translateY(1px)}
+
 .field.full{grid-column:1/-1}
 .field.half{grid-column:auto}
 label,.field-label{font:10px/1.5 "SFMono-Regular",Consolas,monospace;letter-spacing:.1em;color:rgba(255,255,255,.8)}
@@ -110,6 +128,8 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--cyan);outline-of
   .section-head span{font-size:8px}
   .form{grid-template-columns:1fr;gap:15px}
   .field.full,.field.half,.consent,.actions{grid-column:1}
+  .participation-options{gap:8px}
+  .participation-choice span{min-height:52px;padding:10px 7px;font-size:11px}
   input,select{min-height:48px;padding:11px 12px}
   textarea{min-height:86px;padding:11px 12px}
   .consent{padding:13px 0;font-size:10px}
@@ -160,6 +180,19 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--cyan);outline-of
   <section aria-labelledby="form-title">
     <div class="section-head"><h2 id="form-title">参加申し込み</h2><span>ALL FIELDS WITH * REQUIRED</span></div>
     <form class="form" id="entryForm">
+      <fieldset class="field full participation-option" id="participationOption" style="border:0;padding:0;margin:0">
+        <legend class="field-label">参加区分 <b class="req">*</b></legend>
+        <div class="participation-options">
+          <label class="participation-choice">
+            <input type="radio" name="participation" value="ワークショップから参加" required>
+            <span>ワークショップから参加</span>
+          </label>
+          <label class="participation-choice">
+            <input type="radio" name="participation" value="練習会のみ参加" required>
+            <span>練習会のみ参加</span>
+          </label>
+        </div>
+      </fieldset>
       <div class="field half">
         <label for="name">NAME <b class="req">*</b></label>
         <input id="name" name="name" type="text" placeholder="例）山田 太郎" autocomplete="name" required>
@@ -188,6 +221,17 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--cyan);outline-of
   <footer class="footer"><span>© 2026 SEIBU BREAK SPREAD</span><a href="https://www.instagram.com/seibu_breakspread/" target="_blank" rel="noopener noreferrer">INSTAGRAM ↗</a></footer>
 </main>
 <script>
+// 参加区分の表示切り替え：true = 表示 / false = 非表示
+const SHOW_PARTICIPATION_TYPE = true;
+
+const participationOption = document.getElementById('participationOption');
+const participationRadios = participationOption.querySelectorAll('input[name="participation"]');
+participationOption.hidden = !SHOW_PARTICIPATION_TYPE;
+participationRadios.forEach(radio => {
+  radio.required = SHOW_PARTICIPATION_TYPE;
+  if (!SHOW_PARTICIPATION_TYPE) radio.checked = false;
+});
+
 document.getElementById('entryForm').addEventListener('submit', function(event){
   event.preventDefault();
   if(!this.reportValidity()) return;
